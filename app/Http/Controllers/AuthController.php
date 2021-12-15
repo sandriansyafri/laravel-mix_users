@@ -54,6 +54,26 @@ class AuthController extends Controller
         ]);
     }
 
+    public function upload($id, Request $request)
+    {
+        $user = User::find($id);
+        $image_name = time() . '.' . $request->photo->extension();
+
+        $path = public_path('images');
+        if (!empty($user->photo) && file_exists($path . '/' . $user->photo)) {
+            unlink($path . '/' . $user->photo);
+        }
+
+        $user->photo = $image_name;
+        $user->save();
+
+        $request->photo->move(public_path('images'), $image_name);
+        return response()->json([
+            'status' => true,
+            'message' => ' gambar berhasil diupload',
+        ]);
+    }
+
     public function update(Request $request)
     {
         $validator = Validator::make($request->all(), [

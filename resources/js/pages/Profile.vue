@@ -18,6 +18,15 @@
                     <div class="card-body">
                         <h5>Name : {{ user.name }}</h5>
                         <p>Email : {{ user.email }}</p>
+
+                        <div>
+                            <img
+                                :src="'/images/' + user.photo"
+                                class="img-fluid"
+                                alt=""
+                            />
+                        </div>
+
                         <button
                             class="btn btn-danger rounded-0 px-5"
                             @click.prevent="deleteUser(user.id)"
@@ -29,6 +38,12 @@
                             @click.prevent="editUser(user.id)"
                         >
                             EDIT
+                        </button>
+                        <button
+                            class="btn btn-warning rounded-0 px-5"
+                            @click.prevent="uploadUser(user.id)"
+                        >
+                            UPLOAD IMAGE
                         </button>
                     </div>
                 </div>
@@ -70,6 +85,12 @@ export default {
         editUser(id) {
             this.$router.push({
                 name: "users.edit",
+                params: { id },
+            });
+        },
+        uploadUser(id) {
+            this.$router.push({
+                name: "users.upload",
                 params: { id },
             });
         },

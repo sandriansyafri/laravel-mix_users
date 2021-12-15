@@ -8,6 +8,7 @@ import User from "../pages/User.vue";
 import Profile from "../pages/Profile.vue";
 import Register from "../pages/Register.vue";
 import Edit from "../pages/Edit.vue";
+import Upload from "../pages/Upload.vue";
 import NotFound from "../pages/NotFound.vue";
 
 const routes = [
@@ -19,6 +20,12 @@ const routes = [
         path: "/users/:id/edit",
         name: "users.edit",
         component: Edit,
+        props: true,
+    },
+    {
+        path: "/users/:id/upload",
+        name: "users.upload",
+        component: Upload,
         props: true,
     },
     { path: "/users/:id", name: "users.show", component: Profile, props: true },
