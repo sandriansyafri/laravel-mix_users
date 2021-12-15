@@ -1,61 +1,54 @@
 <template>
   <div class="row">
     <div class="col">
-      <template v-if="name">
-        <div class="row mb-4">
-          <div class="col">
-            <router-link
-              to="/users"
-              class="btn btn-outline-primary rounded-0 px-5"
-              >Kembali</router-link
-            >
-          </div>
-        </div>
-        <div class="row">
-          <div class="col">
-            <h5 class="mb-3">Hello {{ name }}</h5>
-          </div>
-        </div>
-      </template>
+      <h1>Daftar Users</h1>
 
-      <template v-else>
-        <h1>Daftar Users</h1>
-        <ul class="list-group" v-for="user in users" :key="user.id">
-          <li class="list-group-item rounded-0">
-            <!-- <router-link
+      <router-link
+        :to="{ name: 'users.create' }"
+        class="btn btn-primary rounded-0 px-5"
+        >Register
+      </router-link>
+
+      <ul class="list-group" v-for="user in users" :key="user.id">
+        <li class="list-group-item rounded-0">
+          <!-- <router-link
               class="nav-link"
               :to="{ name: 'users.show', params: { name: user.name } }"
             >
               <span class="text-capitalize">{{ user.name }}</span>
             </router-link> -->
-            <a @click.prevent="userDetail(user.name)" class="btn">
-              <span class="text-capitalize">{{ user.name }}</span>
-            </a>
-          </li>
-        </ul>
-      </template>
+          <a @click.prevent="userDetail(user.id)" class="btn">
+            <span class="text-capitalize">{{ user.name }}</span>
+          </a>
+        </li>
+      </ul>
     </div>
   </div>
 </template>
 
 <script>
+import axios from "axios";
 export default {
-  props: ["name"],
+  props: ["id"],
   data() {
     return {
-      users: [
-        { id: 1, name: "sandrian" },
-        { id: 2, name: "hafid" },
-        { id: 3, name: "yogi" },
-      ],
+      users: [],
     };
   },
+  created() {
+    this.getUsers();
+  },
   methods: {
-    userDetail(name) {
+    getUsers() {
+      axios.get("/api/users").then((res) => {
+        this.users = res.data;
+      });
+    },
+    userDetail(id) {
       this.$router.push({
         name: "users.show",
         params: {
-          name: name,
+          id,
         },
       });
     },
@@ -63,5 +56,4 @@ export default {
 };
 </script>
 
-<style>
-</style>
+<style></style>

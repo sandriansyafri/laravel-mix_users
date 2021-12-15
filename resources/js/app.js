@@ -4,7 +4,11 @@
  * building robust, powerful web applications using Vue and Laravel.
  */
 import Vue from "vue";
-require("./bootstrap");
+import router from "./router";
+import VueNoty from "vuejs-noty";
+Vue.use(VueNoty);
+import "./bootstrap";
+import "vuejs-noty/dist/vuejs-noty.css";
 
 /**
  * The following block of code may be used to automatically register your
@@ -33,8 +37,6 @@ Vue.component(
     "navbar-component",
     require("./components/NavbarComponent.vue").default
 );
-
-import router from "./router";
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
